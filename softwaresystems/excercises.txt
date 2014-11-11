@@ -1,0 +1,9 @@
+[1.2]
+Property type: Enum (integer) -> Setting
+Queries:
+    - Setting getSetting()
+    - boolean isOnSetting(Setting setting)
+Commands:
+    - void setSetting(Setting setting)
+    - void nextSetting()
+    - void prevSetting()
