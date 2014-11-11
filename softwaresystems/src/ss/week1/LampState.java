@@ -25,8 +25,8 @@ public enum LampState {
 
     private final int state;
 
-    private LampState(int state) {
-        this.state = state;
+    private LampState(int argState) {
+        this.state = argState;
     }
 
     public int getState() {

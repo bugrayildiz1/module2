@@ -8,10 +8,10 @@ public class ThreeWayLamp {
     }
 
     public LampState getState() {
-        return this.state;
+        return state;
     }
 
-    public void setState(LampState state) {
-        this.state = state;
+    public void setState(LampState argState) {
+        state = argState;
     }
 }
