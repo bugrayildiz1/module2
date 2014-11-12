@@ -6,12 +6,16 @@ package ss.week1.hotel;
  *
  */
 public class Guest {
+    private final String name;
+    private Room room;
+
     /**
      * Create a new <code>Guest</code> with the specified name and no <code>Room</code>.
      * @param argName The name of the <code>Guest</code>.
      */
     public Guest(String argName) {
-
+        this.name = argName;
+        this.room = null;
     }
 
     /**
@@ -27,7 +31,20 @@ public class Guest {
      * checked into the specified <code>Room</code>
      */
     public boolean checkin(Room argRoom) {
-        return false;
+        if (room != null) {
+            // This guest already has a room.
+            return false;
+        }
+        if (argRoom.getGuest() != null) {
+            // The room already has a guest.
+            return false;
+        }
+
+        // Claim the room.
+        argRoom.setGuest(this);
+        room = argRoom;
+
+        return true;
     }
 
     /**
@@ -38,7 +55,16 @@ public class Guest {
      * <code>false</code> if this <code>Guest</code> has no <code>Room</code>
      */
     public boolean checkout() {
-        return false;
+        if (room == null) {
+            // This guest doesn't have a room.
+            return false;
+        }
+
+        // Free the room.
+        room.setGuest(null);
+        room = null;
+
+        return true;
     }
 
     /**
@@ -46,7 +72,7 @@ public class Guest {
      * @return the name of this <code>Guest</code>
      */
     public String getName() {
-        return null;
+        return name;
     }
 
     /**
@@ -55,6 +81,11 @@ public class Guest {
      * <code>Guest</code> has no <code>Room</code>
      */
     public Room getRoom() {
-        return null;
+        return room;
+    }
+
+    @Override
+    public String toString() {
+        return "Guest " + name;
     }
 }
