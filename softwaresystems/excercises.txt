@@ -180,3 +180,11 @@ Test class: class ss.week1.hotel.GuestTest
         ot.getRoom()
             Expected:  null
             Result: null
+            
+[P-1.17]
+The initial password might need to comply to certain password requirements, which an empty string
+is not likely to do.
+
+[P-1.18]
+Declaring it as public exposes it to other classes, which is required if you want to change the
+password from the initial value outside of the Password class.
