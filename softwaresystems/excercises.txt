@@ -7,3 +7,66 @@ Commands:
     - void setSetting(Setting setting)
     - void nextSetting()
     - void prevSetting()
+    
+[1.5]
+a:
+	- roomNumber : String
+	- roomCapacity : int
+	- isReserved : boolean
+b:
+	- title : String
+	- author : String
+c:
+	- price : BigDecimal
+	- amount : int
+d:
+	- totalSlots : int
+	- usedSlots : int
+	- freeSlots : int
+e:
+	- maxCapacity : int
+	- maxWeight : double
+	- weight : double
+	- currentFloor : int
+
+[1.6]
+a: int getCapacity();
+b: String getTitle();
+c: int getAmount();
+d: int getFreeSlots();
+e: double getWeight();
+
+[1.7]	
+a: reserve(); -> Set isReserved to True (reserve the classroom).
+b: immutable
+c: setAmount(int newAmount) -> Set amount to newAmount.
+d: clearInventory() -> Set usedSlots to 0 and freeSlots to totalSlots. 
+e: setFloor(int newFloor) -> Set currentFloor to newFloor.
+
+[1.8]
+a:
+	- Audi
+	- BMW
+b:
+	- Audi A5
+	- BMW i8
+c:
+	- Saving private Ryan
+	- The ring
+d:
+	- John Doe
+	- Piet Henk
+	
+[1.9]
+a:
+	- Reference: name (String)
+	- Primitive: carModels (int)
+b:
+	- Reference: name (String)
+	- Primitive: doorCount (int)
+c:
+	- Reference: name (String)
+	- Primitive: duration (int)
+d:
+	- Reference: name (String)
+	- Primitive: age (int)
