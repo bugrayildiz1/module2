@@ -7,3 +7,184 @@ Commands:
     - void setSetting(Setting setting)
     - void nextSetting()
     - void prevSetting()
+    
+[1.5]
+a:
+	- roomNumber : String
+	- roomCapacity : int
+	- isReserved : boolean
+b:
+	- title : String
+	- author : String
+c:
+	- price : BigDecimal
+	- amount : int
+d:
+	- totalSlots : int
+	- usedSlots : int
+	- freeSlots : int
+e:
+	- maxCapacity : int
+	- maxWeight : double
+	- weight : double
+	- currentFloor : int
+
+[1.6]
+a: int getCapacity();
+b: String getTitle();
+c: int getAmount();
+d: int getFreeSlots();
+e: double getWeight();
+
+[1.7]	
+a: reserve(); -> Set isReserved to True (reserve the classroom).
+b: immutable
+c: setAmount(int newAmount) -> Set amount to newAmount.
+d: clearInventory() -> Set usedSlots to 0 and freeSlots to totalSlots. 
+e: setFloor(int newFloor) -> Set currentFloor to newFloor.
+
+[1.8]
+a:
+	- Audi
+	- BMW
+b:
+	- Audi A5
+	- BMW i8
+c:
+	- Saving private Ryan
+	- The ring
+d:
+	- John Doe
+	- Piet Henk
+	
+[1.9]
+a:
+	- Reference: name (String)
+	- Primitive: carModels (int)
+b:
+	- Reference: name (String)
+	- Primitive: doorCount (int)
+c:
+	- Reference: name (String)
+	- Primitive: duration (int)
+d:
+	- Reference: name (String)
+	- Primitive: age (int)
+	
+[4.2]
+public boolean passed() {
+	return score >= 70;
+}
+
+[4.7]
+public double pay() {
+	if(hours > 40) {
+		int overtimeHours = hours - 40;
+		
+		return 40 * rate + overtimeHous * (rate / 2);
+	} else {
+		return hours * rate;
+	}
+}
+
+[4.13]
+public class Counter {
+	private int dollars;
+	private int cents;
+	
+	public Counter() {
+		this.dollars = 0;
+		this.cents = 0;
+	}
+	
+	public int dollars() {
+		return dollars;
+	}
+	
+	public int cents() {
+		return cents;
+	}
+	
+	public void reset() {
+		dollars = 0;
+		cents = 0;
+	}
+	
+	public void add(int dollars, int cents) {
+		// Assert(dollars >= 0)
+		// Assert(cents >= 0)
+	
+		int newCents = this.cents + cents;
+		int remainder = newCents % 100;
+		
+		this.dollars += dollars + (newCents - remainder) / 100;
+		this.cents = remainder;
+	}
+	
+	// Problem with subtract: dollars/cents can now become negative
+	// which means you'll have to do additional checks.
+}
+
+[P-1.11]
+Differences are because at this point Guest is just a dummy class with
+no proper functionality.
+
+Test class: class ss.week1.hotel.GuestTest
+    Test: Initial condition
+        ot.getName()
+            Expected:  Ot
+            Result: null
+        sien.getName()
+            Expected:  Sien
+            Result: null
+        ot.getRoom()
+            Expected:  null
+            Result: null
+        sien.getRoom()
+            Expected:  ss.week1.hotel.Room@70dea4e
+            Result: null
+    Test: Checking in a new guest in an empty room
+        ot.checkin(k101)
+            Expected:  true
+            Result: false
+        ot.getRoom()
+            Expected:  ss.week1.hotel.Room@5c647e05
+            Result: null
+        k101.getGuest()
+            Expected:  ss.week1.hotel.Guest@33909752
+            Result: null
+    Test: Checking in a new guest in a room that is already taken
+        ot.checkin(k102)
+            Expected:  false
+            Result: false
+        ot.getRoom()
+            Expected:  null
+            Result: null
+        k102.getGuest()
+            Expected:  ss.week1.hotel.Guest@55f96302
+            Result: null
+    Test: Checking out a guest that rented a room
+        sien.checkout()
+            Expected:  true
+            Result: false
+        sien.getRoom()
+            Expected:  null
+            Result: null
+        k102.getGuest()
+            Expected:  null
+            Result: null
+    Test: Checking out a guest that didn't rent a room
+        ot.checkout()
+            Expected:  false
+            Result: false
+        ot.getRoom()
+            Expected:  null
+            Result: null
+            
+[P-1.17]
+The initial password might need to comply to certain password requirements, which an empty string
+is not likely to do.
+
+[P-1.18]
+Declaring it as public exposes it to other classes, which is required if you want to change the
+password from the initial value outside of the Password class.
