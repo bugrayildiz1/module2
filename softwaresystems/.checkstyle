@@ -4,7 +4,10 @@
   <local-check-config name="UT" location="D:\Programs\eclipse\checkstyle(4).xml" type="external" description="">
     <additional-data name="protect-config-file" value="false"/>
   </local-check-config>
-  <fileset name="all" enabled="true" check-config-name="UT Checkstyle" local="false">
+  <local-check-config name="UT Module2" location="checkstyle(4).xml" type="project" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <fileset name="all" enabled="true" check-config-name="UT Module2" local="true">
     <file-match-pattern match-pattern="." include-pattern="true"/>
   </fileset>
 </fileset-config>
