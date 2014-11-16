@@ -10,7 +10,7 @@ public class ThreeWayLamp {
     /**
      * Creates a new three way lamp initialized to the off state.
      */
-    //@ ensures state() == LampState.Off;
+    //@ ensures getState() == LampState.Off;
     public ThreeWayLamp() {
         this.state = LampState.Off;
 
@@ -21,7 +21,7 @@ public class ThreeWayLamp {
      * Creates a new three way lamp.
      * @param argState The initial state of the lamp.
      */
-    //@ ensures state() == argState;
+    //@ ensures getState() == argState;
     public ThreeWayLamp(LampState argState) {
         this.state = argState;
 
@@ -31,7 +31,6 @@ public class ThreeWayLamp {
     /**
      * Set the lamp to the next (higher) state. The state will wrap from highest to off.
      */
-    //@ ensures \result == (\old(getState()) == LampState.Off ? LampState.Low : 
     public void nextState() {
         int currentState = state.ordinal();
         int newState = (currentState + 1) % LampState.values().length;
@@ -53,7 +52,7 @@ public class ThreeWayLamp {
      * Checks if the lamp is currently on the specified state.
      * @param argState The state to check the lamp is on.
      */
-    //@ ensures \result == (state() == argState);
+    //@ ensures \result == (getState() == argState);
     public boolean isOnState(LampState argState) {
         return state == argState;
     }
@@ -69,7 +68,7 @@ public class ThreeWayLamp {
      * Sets the lamp state.
      * @param argState The new lamp state.
      */
-    //@ ensures state() == argState;
+    // @ ensures getState() == argState;
     public void setState(LampState argState) {
         state = argState;
 
