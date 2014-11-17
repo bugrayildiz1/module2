@@ -11,7 +11,7 @@ import ss.week2.hotel.Room;
 import ss.week2.hotel.Safe;
 
 /**
- * Testprogram for Room en Guest Software Systems
+ * Testprogram for Room en Guest Software Systems.
  * @author Arend Rensink
  * @version $Revision: 1.5 $
  */

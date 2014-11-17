@@ -1,10 +1,9 @@
 package ss.week2.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-
 
 import ss.week2.hotel.Guest;
 import ss.week2.hotel.Hotel;
@@ -12,9 +11,8 @@ import ss.week2.hotel.Password;
 import ss.week2.hotel.Room;
 import ss.week2.hotel.Safe;
 
-/** 
- * Test program Password.
- * Lab exercise Software Systems
+/**
+ * Test program Password. Lab exercise Software Systems
  * @author Arend Rensink, Christoph Bockisch
  * @version $Revision: 1.2 $
  */
@@ -26,11 +24,10 @@ public class HotelTest {
     public static final String GUEST_NAME_1 = "Major Gowen";
     public static final String GUEST_NAME_2 = "Miss Tibbs";
     public static final String GUEST_NAME_3 = "Miss Gatsby";
-    
 
-     /**
-     * Sets the instance variable <tt>hotel</tt> to a well-defined initial value.
-     * All test methods should be preceded by a call to this method.
+    /**
+     * Sets the instance variable <tt>hotel</tt> to a well-defined initial value. All test methods
+     * should be preceded by a call to this method.
      */
     @Before
     public void setUp() {
@@ -41,9 +38,9 @@ public class HotelTest {
     }
 
     /**
-     * CheckIn must return null is the password is wrong.
-     * As long as rooms are available, checkIn must return a room occupied by the specified guest.
-     * When the hotel is full, checkIn must return null.
+     * CheckIn must return null is the password is wrong. As long as rooms are available, checkIn
+     * must return a room occupied by the specified guest. When the hotel is full, checkIn must
+     * return null.
      */
     @Test
     public void testCheckin() {
@@ -55,15 +52,14 @@ public class HotelTest {
 
         Room room2 = hotel.checkIn(correctPassword, GUEST_NAME_2);
         assertEquals("Correct 2nd guest checkin", GUEST_NAME_2, room2.getGuest().getName());
-        
+
         Room room3 = hotel.checkIn(correctPassword, GUEST_NAME_3);
         assertEquals("No checkin when hotel is full", null, room3);
     }
 
     /**
-     * If the specified guest is checked in, he must be checked out, i.e., afterwards, he must not have a room anymore, and
-     * his room must now be empty.
-     * And the room's safe must be inactivated.
+     * If the specified guest is checked in, he must be checked out, i.e., afterwards, he must not
+     * have a room anymore, and his room must now be empty. And the room's safe must be inactivated.
      */
     @Test
     public void testCheckout() {
@@ -71,19 +67,19 @@ public class HotelTest {
         Guest guest = room.getGuest();
         Safe safe = room.getSafe();
         safe.activate(Password.INITIAL);
-        
+
         hotel.checkOut(GUEST_NAME_1);
         assertEquals("Guest has no room", null, guest.getRoom());
         assertEquals("Room has no guest", null, room.getGuest());
         assertEquals("Safe is inactive", false, safe.isActive());
-        
+
         hotel.checkOut(GUEST_NAME_2);
         // nothing to be checked here, but no exception should occur.
     }
-    
+
     /**
-     * If there is a free room, getFreeRoom must return a room without guest.
-     * Otherwise is must return null.
+     * If there is a free room, getFreeRoom must return a room without guest. Otherwise is must
+     * return null.
      */
     @Test
     public void testgetFreeRoom() {
@@ -104,16 +100,16 @@ public class HotelTest {
     @Test
     public void testgetRoom() {
         hotel.checkIn(correctPassword, GUEST_NAME_1);
-        
+
         Room room0 = hotel.getRoom(GUEST_NAME_1);
         assertEquals("Room with correct guest", GUEST_NAME_1, room0.getGuest().getName());
-        
+
         Room room1 = hotel.getRoom(GUEST_NAME_2);
         assertEquals("Guest not checked in", null, room1);
     }
 
     /**
-     * A password object must be returned. 
+     * A password object must be returned.
      */
     @Test
     public void testgetPassword() {
@@ -122,17 +118,17 @@ public class HotelTest {
     }
 
     /**
-     * ToString is difficult to test fully because there is no restriction on the
-     * format of the returned String. At least it can be tested that a String is
-     * returned and that it contains the name of a checked in guest.
+     * ToString is difficult to test fully because there is no restriction on the format of the
+     * returned String. At least it can be tested that a String is returned and that it contains the
+     * name of a checked in guest.
      */
     @Test
-    public void testtoString() {       
+    public void testtoString() {
         hotel.checkIn(correctPassword, GUEST_NAME_1);
-        
+
         String string = hotel.toString();
         assertEquals("Returned String is not null", true, string != null);
-        assertEquals("Returned String contains guest name",
-        		true, string.indexOf(GUEST_NAME_1) != -1);
+        assertEquals("Returned String contains guest name", true,
+                string.indexOf(GUEST_NAME_1) != -1);
     }
 }
