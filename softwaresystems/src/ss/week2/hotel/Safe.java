@@ -19,6 +19,8 @@ public class Safe {
     //@ ensures isActive() == false;
     //@ ensures isOpen() == false;
     public Safe(Password argPassword) {
+        assert argPassword != null;
+
         this.password = argPassword;
         this.active = false;
         this.open = false;
@@ -31,7 +33,11 @@ public class Safe {
     //@ requires argPassword != null;
     //@ ensures isActive() == getPassword().testWord(argPassword);
     public void activate(String argPassword) {
+        assert argPassword != null;
 
+        if (password.testWord(argPassword)) {
+            active = true;
+        }
     }
 
     /**
@@ -39,7 +45,8 @@ public class Safe {
      */
     //@ ensures isActive() == false && isOpen() == false;
     public void deactivate() {
-
+        active = false;
+        open = false;
     }
 
     /**
@@ -49,7 +56,11 @@ public class Safe {
     //@ requires argPassword != null;
     //@ ensures isOpen() == isActive() == true && getPassword().testWord(argPassword);
     public void open(String argPassword) {
+        assert argPassword != null;
 
+        if (active && password.testWord(argPassword)) {
+            open = true;
+        }
     }
 
     /**
@@ -57,21 +68,21 @@ public class Safe {
      */
     //@ ensures isOpen() == false && \old(isActive()) == isActive();
     public void close() {
-
+        open = false;
     }
 
     /**
      * Returns if the safe is currently active.
      */
     /*@ pure */public boolean isActive() {
-        return false;
+        return active;
     }
 
     /**
      * Returns if the safe is current open.
      */
     /*@ pure */public boolean isOpen() {
-        return false;
+        return open;
     }
 
     /**
@@ -79,6 +90,6 @@ public class Safe {
      */
     //@ ensures \result != null;
     /*@ pure */public Password getPassword() {
-        return null;
+        return password;
     }
 }
