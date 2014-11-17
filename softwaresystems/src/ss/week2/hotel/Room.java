@@ -10,18 +10,28 @@ public class Room {
 
     private int number;
     private Guest guest;
+    private Safe safe;
 
     // ------------------ Constructor ------------------------
 
     /**
      * Creates a <code>Room</code> with the given number, without a guest.
      * @param no number of the new <code>Room</code>
+     * @param argSafe the <code>Safe</code> of the new <code>Room</code>.
      */
-    public Room(int no) {
+    public Room(int no, Safe argSafe) {
         number = no;
+        safe = argSafe;
     }
 
     // ------------------ Queries --------------------------
+
+    /**
+     * Returns the <code>Safe</code> of this <code>Room</code>.
+     */
+    public Safe getSafe() {
+        return safe;
+    }
 
     /**
      * Returns the number of this <code>Room</code>.
