@@ -92,4 +92,8 @@ public class Safe {
     /*@ pure */public Password getPassword() {
         return password;
     }
+
+    public static void main(String[] args) {
+        new Safe(null);
+    }
 }
