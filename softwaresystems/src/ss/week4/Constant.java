@@ -1,6 +1,6 @@
 package ss.week4;
 
-public class Constant implements Function {
+public class Constant implements Function, Intergrandable {
     private final double value;
 
     public Constant(double argValue) {
@@ -20,6 +20,11 @@ public class Constant implements Function {
     @Override
     public String toString() {
         return String.format("%f", value);
+    }
+
+    @Override
+    public Function integrand() {
+        return new Product(new Constant(value), new Exponent(1));
     }
 
 }

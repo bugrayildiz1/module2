@@ -1,15 +1,16 @@
 package ss.week4;
 
-public class Polynomial implements Function {
+public class Polynomial implements Function, Intergrandable {
     private final LinearProduct[] products;
 
     public Polynomial(double... argA) {
         this.products = new LinearProduct[argA.length];
 
         for (int i = 0; i < argA.length; i++) {
-            double an = argA[argA.length - i - 1];
+            int n = argA.length - i - 1;
+            double an = argA[n];
 
-            products[i] = new LinearProduct(new Constant(an), new Exponent(an));
+            products[i] = new LinearProduct(new Constant(an), new Exponent(n));
         }
     }
 
@@ -49,5 +50,16 @@ public class Polynomial implements Function {
         }
 
         return builder.substring(0, builder.length() - 3);
+    }
+
+    @Override
+    public Function integrand() {
+        LinearProduct[] newProducts = new LinearProduct[products.length];
+
+        for (int i = 0; i < newProducts.length; i++) {
+            newProducts[i] = (LinearProduct) products[i].integrand();
+        }
+
+        return new Polynomial(newProducts);
     }
 }
