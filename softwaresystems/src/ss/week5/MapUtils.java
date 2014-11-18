@@ -2,6 +2,7 @@ package ss.week5;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class MapUtils {
 
@@ -19,6 +20,17 @@ public class MapUtils {
 
         for (Integer valueCount : countMap.values()) {
             if (valueCount > 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //@ requires f != null && range != null;
+    public static <K, V> boolean isSurjectiveOnRange(Map<K, V> f, Set<V> range) {
+        for (V element : range) {
+            if (!f.values().contains(element)) {
                 return false;
             }
         }
