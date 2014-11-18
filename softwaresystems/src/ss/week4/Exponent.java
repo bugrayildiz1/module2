@@ -19,7 +19,7 @@ public class Exponent implements Function, Intergrandable {
 
     @Override
     public String toString() {
-        return String.format("x^%f", n);
+        return String.format("x^%d", n);
     }
 
     @Override
