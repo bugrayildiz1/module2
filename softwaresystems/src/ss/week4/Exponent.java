@@ -1,9 +1,13 @@
 package ss.week4;
 
 public class Exponent implements Function {
-    private final int n;
+    private final double n;
 
     public Exponent(int argN) {
+        this.n = argN;
+    }
+
+    public Exponent(double argN) {
         this.n = argN;
     }
 
@@ -14,11 +18,11 @@ public class Exponent implements Function {
 
     @Override
     public Function derivative() {
-        return new LinearProduct(new Exponent(n - 1), new Constant(n));
+        return new LinearProduct(new Constant(n), new Exponent(n - 1));
     }
 
     @Override
     public String toString() {
-        return String.format("x^%d", n);
+        return String.format("x^%f", n);
     }
 }
