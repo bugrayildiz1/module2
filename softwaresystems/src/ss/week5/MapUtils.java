@@ -1,6 +1,7 @@
 package ss.week5;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,5 +37,33 @@ public class MapUtils {
         }
 
         return true;
+    }
+
+    //@ requires f != null;
+    public static <K, V> Map<V, Set<K>> inverse(Map<K, V> f) {
+        // Result must be a map of <V, Set<K>> as several keys might
+        // be mapped to the same value.
+        Map<V, Set<K>> result = new HashMap<>();
+
+        for (Map.Entry<K, V> entry : f.entrySet()) {
+            if (!result.containsKey(entry.getValue())) {
+                result.put(entry.getValue(), new HashSet<K>());
+            }
+
+            result.get(entry.getValue()).add(entry.getKey());
+        }
+
+        return result;
+    }
+
+    //@ requires f != null;
+    public static <K, V> Map<V, K> inverseBijection(Map<K, V> f) {
+        Map<V, K> result = new HashMap<>();
+
+        for (Map.Entry<K, V> entry : f.entrySet()) {
+            result.put(entry.getValue(), entry.getKey());
+        }
+
+        return result;
     }
 }
