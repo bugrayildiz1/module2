@@ -21,6 +21,6 @@ public class Sum implements Function {
 
     @Override
     public String toString() {
-        return String.format("%s + %s", g.toString(), h.toString());
+        return String.format("%s + %s", g, h);
     }
 }
