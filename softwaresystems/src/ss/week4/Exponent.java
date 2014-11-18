@@ -24,6 +24,6 @@ public class Exponent implements Function, Intergrandable {
 
     @Override
     public Function integrand() {
-        return new LinearProduct(new Constant(1 / (n + 1)), new Exponent(n + 1));
+        return new LinearProduct(new Constant(1d / (n + 1)), new Exponent(n + 1));
     }
 }
