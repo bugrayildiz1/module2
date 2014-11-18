@@ -1,5 +1,6 @@
 package ss.week3.hotel;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,27 @@ public class Hotel {
 
         freeRooms.add(new Room(100, new Safe(password)));
         freeRooms.add(new Room(101, new Safe(password)));
+    }
+
+    public Bill getBill(String guest, int nightsSpend, PrintStream printStream) {
+        if (!usedRooms.containsKey(guest) || !(usedRooms.get(guest) instanceof PricedRoom)) {
+            return null;
+        }
+
+        Bill bill = new Bill(printStream);
+        PricedRoom room = (PricedRoom) usedRooms.get(guest);
+
+        for (int i = 0; i < nightsSpend; i++) {
+            bill.newItem(room);
+        }
+
+        if (room.getSafe().isActive() && room.getSafe() instanceof PricedSafe) {
+            bill.newItem((PricedSafe) room.getSafe());
+        }
+
+        bill.close();
+
+        return bill;
     }
 
     public Room checkIn(String argPassword, String guestName) {
