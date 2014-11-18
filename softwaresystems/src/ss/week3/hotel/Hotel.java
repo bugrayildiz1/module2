@@ -24,13 +24,22 @@ public class Hotel {
         freeRooms.add(new Room(101, new Safe(password)));
     }
 
-    public Bill getBill(String guest, int nightsSpend, PrintStream printStream) {
+    public Bill getBill(String guest, int nightsSpend, PrintStream printStream, int drinks) {
+        // The bill can be manipulated through the number of drinks. Besides the obvious Java 
+        // signed data types allowing a negative amount of drinks to reduce the final bill, or
+        // even make it negative, due to the Java Language Specifications adding to an integer
+        // so that the result is greater than Integer.MAX_VALUE will cause it to wrap around to
+        // Integer_MIN_VALUE. Thus even by only allowing for positive additions a customer can
+        // still cause a negative number of drinks through integer overflows if no proper checks
+        // are done.
+
         if (!usedRooms.containsKey(guest) || !(usedRooms.get(guest) instanceof PricedRoom)) {
             return null;
         }
 
         Bill bill = new Bill(printStream);
         PricedRoom room = (PricedRoom) usedRooms.get(guest);
+        Fridge fridge = new Fridge(drinks);
 
         for (int i = 0; i < nightsSpend; i++) {
             bill.newItem(room);
@@ -39,6 +48,8 @@ public class Hotel {
         if (room.getSafe().isActive() && room.getSafe() instanceof PricedSafe) {
             bill.newItem((PricedSafe) room.getSafe());
         }
+
+        bill.newItem(fridge);
 
         bill.close();
 
