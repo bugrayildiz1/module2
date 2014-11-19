@@ -1,20 +1,23 @@
 package ss.week6.cards;
 
 import java.io.BufferedReader;
-import java.io.DataInput;
-import java.io.DataOutput;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Card {
+public class Card implements Serializable {
 
     // ---- constants -----------------------------------
-
+    private static final long serialVersionUID = 2730594976152737018L;
     // ranks are 2, ..., 9 and:
     public static final char JACK = 'J';
     public static final char QUEEN = 'Q';
@@ -339,9 +342,14 @@ public class Card {
         writer.println(this.toString());
     }
 
-    public void write(DataOutput output) throws IOException {
+    public void write(DataOutputStream output) throws IOException {
         output.writeChar(suit);
         output.writeChar(rank);
+    }
+
+    public void write(ObjectOutputStream output) throws IOException {
+        output.writeObject(this);
+
     }
 
     public static Card read(BufferedReader in) throws EOFException {
@@ -386,7 +394,7 @@ public class Card {
         return card;
     }
 
-    public static Card read(DataInput input) throws EOFException {
+    public static Card read(DataInputStream input) throws EOFException {
         try {
             char suitChar = input.readChar();
             char rankChar = input.readChar();
@@ -399,6 +407,14 @@ public class Card {
         } catch (EOFException e) {
             throw e;
         } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public static Card read(ObjectInputStream input) {
+        try {
+            return (Card) input.readObject();
+        } catch (ClassNotFoundException | IOException e) {
             return null;
         }
     }
