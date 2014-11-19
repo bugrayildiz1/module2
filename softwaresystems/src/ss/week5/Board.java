@@ -171,7 +171,7 @@ public class Board {
     /*@pure*/
     public boolean isFull() {
         for (int i = 0; i < fields.length; i++) {
-            if (fields[i] != Mark.EMPTY) {
+            if (fields[i] == Mark.EMPTY) {
                 return false;
             }
         }
