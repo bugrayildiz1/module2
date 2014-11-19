@@ -4,5 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="OPENJML_RUNTIME_LIBRARY"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/softwaresystems/lib/commons-codec-1.10-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
