@@ -28,22 +28,21 @@ public class CardReader {
     private static Card read() throws EOFException {
         if (reader != null) {
             return Card.read(reader);
-        } /*else if (dataIn != null) {
-          return Card.read(dataIn);
-          } else {
-          return Card.read(objectIn);
-          }*/
-        return null;
+        } else if (dataIn != null) {
+            return Card.read(dataIn);
+        } else {
+            return Card.read(objectIn);
+        }
     }
 
     private static void write(Card k) throws IOException {
         if (writer != null) {
             k.write(writer);
-        } /*else if (dataOut != null) {
-          k.write(dataOut);
-          } else {
-          k.write(objectOut);
-          }*/
+        } else if (dataOut != null) {
+            k.write(dataOut);
+        } else {
+            k.write(objectOut);
+        }
     }
 
     private static void close() {
