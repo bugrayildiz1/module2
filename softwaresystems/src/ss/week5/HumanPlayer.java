@@ -10,6 +10,8 @@ import java.util.Scanner;
  */
 public class HumanPlayer extends Player {
 
+    private Scanner in = new Scanner(System.in);
+
     // -- Constructors -----------------------------------------------
 
     /*@
@@ -34,21 +36,19 @@ public class HumanPlayer extends Player {
 
      */
     /**
-     * Asks the user to input the field where to place the next mark. This is
-     * done using the standard input/output. \
+     * Asks the user to input the field where to place the next mark. This is done using the
+     * standard input/output. \
      * 
-     * @param board
-     *            the game board
+     * @param board the game board
      * @return the player's chosen field
      */
     public int determineMove(Board board) {
-        String prompt = "> " + getName() + " (" + getMark().toString() + ")"
-                + ", what is your choice? ";
+        String prompt =
+                "> " + getName() + " (" + getMark().toString() + ")" + ", what is your choice? ";
         int choice = readInt(prompt);
         boolean valid = board.isField(choice) && board.isEmptyField(choice);
         while (!valid) {
-            System.out.println("ERROR: field " + choice
-                    + " is no valid choice.");
+            System.out.println("ERROR: field " + choice + " is no valid choice.");
             choice = readInt(prompt);
             valid = board.isField(choice) && board.isEmptyField(choice);
         }
@@ -56,11 +56,10 @@ public class HumanPlayer extends Player {
     }
 
     /**
-     * Writes a prompt to standard out and tries to read an int value from
-     * standard in. This is repeated until an int value is entered.
+     * Writes a prompt to standard out and tries to read an int value from standard in. This is
+     * repeated until an int value is entered.
      * 
-     * @param prompt
-     *            the question to prompt the user
+     * @param prompt the question to prompt the user
      * @return the first int value which is entered by the user
      */
     private int readInt(String prompt) {
@@ -68,15 +67,15 @@ public class HumanPlayer extends Player {
         boolean intRead = false;
         do {
             System.out.print(prompt);
-            String line = (new Scanner(System.in)).nextLine();
+            String line = in.nextLine();
             Scanner scannerLine = new Scanner(line);
             if (scannerLine.hasNextInt()) {
                 intRead = true;
                 value = scannerLine.nextInt();
             }
+            scannerLine.close();
         } while (!intRead);
 
         return value;
     }
-
 }
