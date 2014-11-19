@@ -39,6 +39,10 @@ public class Game {
      */
     private int current;
 
+    // Moved out of readBoolean body to remove the Resource leak warning.
+    // Closing this scanner would also cause the stdin to be closed, which would break the program.
+    private static Scanner in = new Scanner(System.in);
+
     // -- Constructors -----------------------------------------------
 
     /*@
@@ -90,7 +94,6 @@ public class Game {
         String answer;
         do {
             System.out.print(prompt);
-            Scanner in = new Scanner(System.in);
             answer = in.hasNextLine() ? in.nextLine() : null;
         } while (answer == null || (!answer.equals(yes) && !answer.equals(no)));
         return answer.equals(yes);
