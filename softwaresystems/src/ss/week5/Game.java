@@ -125,7 +125,7 @@ public class Game {
             update();
 
             // Swap to the next player.
-            current = current + 1 % players.length;
+            current = (current + 1) % players.length;
         }
 
         // Game is over, print result.
