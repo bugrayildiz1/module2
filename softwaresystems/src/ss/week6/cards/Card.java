@@ -1,6 +1,8 @@
 package ss.week6.cards;
 
 import java.io.BufferedReader;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -337,33 +339,9 @@ public class Card {
         writer.println(this.toString());
     }
 
-    public static void main(String[] args) {
-        PrintWriter writer;
-
-        if (args.length != 0) {
-            try {
-                File file = new File(args[0]);
-                writer = new PrintWriter(file);
-            } catch (FileNotFoundException e) {
-                System.err.println("Failed to create PrintWriter: " + e.getMessage());
-                return;
-            }
-        } else {
-            writer = new PrintWriter(System.out);
-        }
-
-        Card card1 = new Card(DIAMONDS, JACK);
-        Card card2 = new Card(CLUBS, QUEEN);
-        Card card3 = new Card(SPADES, '4');
-        Card card4 = new Card(HEARTS, ACE);
-
-        card1.write(writer);
-        card2.write(writer);
-        card3.write(writer);
-        card4.write(writer);
-
-        writer.flush();
-        writer.close();
+    public void write(DataOutput output) throws IOException {
+        output.writeChar(suit);
+        output.writeChar(rank);
     }
 
     public static Card read(BufferedReader in) throws EOFException {
@@ -406,5 +384,51 @@ public class Card {
         }
 
         return card;
+    }
+
+    public static Card read(DataInput input) throws EOFException {
+        try {
+            char suitChar = input.readChar();
+            char rankChar = input.readChar();
+
+            if (isValidSuit(suitChar) && isValidRank(rankChar)) {
+                return new Card(suitChar, rankChar);
+            } else {
+                return null;
+            }
+        } catch (EOFException e) {
+            throw e;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        PrintWriter writer;
+
+        if (args.length != 0) {
+            try {
+                File file = new File(args[0]);
+                writer = new PrintWriter(file);
+            } catch (FileNotFoundException e) {
+                System.err.println("Failed to create PrintWriter: " + e.getMessage());
+                return;
+            }
+        } else {
+            writer = new PrintWriter(System.out);
+        }
+
+        Card card1 = new Card(DIAMONDS, JACK);
+        Card card2 = new Card(CLUBS, QUEEN);
+        Card card3 = new Card(SPADES, '4');
+        Card card4 = new Card(HEARTS, ACE);
+
+        card1.write(writer);
+        card2.write(writer);
+        card3.write(writer);
+        card4.write(writer);
+
+        writer.flush();
+        writer.close();
     }
 }
