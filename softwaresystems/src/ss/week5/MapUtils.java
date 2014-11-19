@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class MapUtils {
+    // TODO: P-5.16: Add loop invariants to all loops. Actually quite tricky as all loops are
+    // for-each iterators.
 
     //@ requires f != null;
     public static <K, V> boolean isOneOnOne(Map<K, V> f) {
