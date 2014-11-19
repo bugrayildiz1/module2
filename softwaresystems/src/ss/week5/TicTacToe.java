@@ -15,6 +15,8 @@ public class TicTacToe {
     private static Player getPlayer(String name, Mark mark) {
         if (name.equals("-N")) {
             return new ComputerPlayer(mark, new NaiveStrategy());
+        } else if (name.equals("-S")) {
+            return new ComputerPlayer(mark, new SmartStrategy());
         }
 
         return new HumanPlayer(name, mark);
