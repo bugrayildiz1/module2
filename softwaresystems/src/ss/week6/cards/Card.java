@@ -1,8 +1,13 @@
 package ss.week6.cards;
 
+import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Card {
 
@@ -359,5 +364,47 @@ public class Card {
 
         writer.flush();
         writer.close();
+    }
+
+    public static Card read(BufferedReader in) throws EOFException {
+        String line = null;
+        String suit = null;
+        String rank = null;
+        Card card = null;
+
+        try {
+            line = in.readLine();
+        } catch (IOException e1) {
+            return null;
+        }
+
+        if (line == null) {
+            throw new EOFException("Unexpected end of file");
+        }
+
+        Scanner scanner = new Scanner(line);
+
+        try {
+            suit = scanner.next();
+            rank = scanner.next();
+        } catch (NoSuchElementException e) {
+            // Not needed, but needed a statement to prevent Checkstyle from whining about an empty
+            // statement.
+            suit = null;
+            rank = null;
+        } finally {
+            scanner.close();
+        }
+
+        if (suit != null && rank != null) {
+            char suitChar = suitString2Char(suit);
+            char rankChar = rankString2Char(rank);
+
+            if (isValidSuit(suitChar) && isValidRank(rankChar)) {
+                card = new Card(suitChar, rankChar);
+            }
+        }
+
+        return card;
     }
 }
