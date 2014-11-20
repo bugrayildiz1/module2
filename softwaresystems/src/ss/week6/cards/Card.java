@@ -46,6 +46,7 @@ public class Card implements Serializable {
      * @param rank the char encoding a rank
      * @return null if <code>isValidRank(rank)</code> returns <code>false</code>
      */
+    @SuppressWarnings("unused")
     private static String rankChar2String(char rank) {
         int i;
         for (i = 0; i < 13 && RANK_CHARACTERS[i] != rank; i++) {
@@ -61,6 +62,7 @@ public class Card implements Serializable {
      * @param rank the char encoding a suit
      * @return null if <code>isValidSuit(suit)</code> returns <code>false</code>
      */
+    @SuppressWarnings("unused")
     private static String suitChar2String(char suit) {
         int i;
         for (i = 0; i < 4 && SUIT_CHARACTERS[i] != suit; i++) {
