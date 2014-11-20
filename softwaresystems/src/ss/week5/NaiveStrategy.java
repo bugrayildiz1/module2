@@ -13,7 +13,7 @@ public class NaiveStrategy implements Strategy {
 
     @Override
     public int determineMove(Board b, Mark m) {
-        List<Integer> freeSlots = new ArrayList<>();
+        List<Integer> freeSlots = new ArrayList<Integer>();
         Random random = new Random();
 
         for (int i = 0; i < Board.DIM * Board.DIM; i++) {

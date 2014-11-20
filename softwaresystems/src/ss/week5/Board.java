@@ -110,6 +110,7 @@ public class Board {
      * @param i the number of the field (see NUMBERING)
      * @return the mark on the field
      */
+    /*@ pure */
     public Mark getField(int i) {
         return fields[i];
     }
@@ -125,6 +126,7 @@ public class Board {
      * @param col the column of the field
      * @return the mark on the field
      */
+    /*@ pure */
     public Mark getField(int row, int col) {
         return getField(index(row, col));
     }
@@ -139,6 +141,7 @@ public class Board {
      * @param i the index of the field (see NUMBERING)
      * @return true if the field is empty
      */
+    /*@ pure */
     public boolean isEmptyField(int i) {
         return fields[i] == Mark.EMPTY;
     }
@@ -200,6 +203,7 @@ public class Board {
      * @param m the mark of interest
      * @return true if there is a row controlled by <code>m</code>
      */
+    /*@ pure */
     public boolean hasRow(Mark m) {
         for (int row = 0; row < DIM; row++) {
             boolean hasRow = true;
@@ -225,6 +229,7 @@ public class Board {
      * @param m the mark of interest
      * @return true if there is a column controlled by <code>m</code>
      */
+    /*@ pure */
     public boolean hasColumn(Mark m) {
         for (int col = 0; col < DIM; col++) {
             boolean hasCol = true;
@@ -250,6 +255,7 @@ public class Board {
      * @param m the mark of interest
      * @return true if there is a diagonal controlled by <code>m</code>
      */
+    /*@ pure */
     public boolean hasDiagonal(Mark m) {
         boolean hasLeftToRight = true;
         boolean hasRightToLeft = true;

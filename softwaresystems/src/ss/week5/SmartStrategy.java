@@ -61,7 +61,7 @@ public class SmartStrategy implements Strategy {
     }
 
     private static List<Integer> getFreeFields(Board b) {
-        List<Integer> freeFields = new ArrayList<>();
+        List<Integer> freeFields = new ArrayList<Integer>();
 
         for (int i = 0; i < Board.DIM * Board.DIM; i++) {
             if (b.isEmptyField(i)) {

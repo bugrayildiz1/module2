@@ -46,7 +46,7 @@ public class MapUtils {
     public static <K, V> Map<V, Set<K>> inverse(Map<K, V> f) {
         // Result must be a map of <V, Set<K>> as several keys might
         // be mapped to the same value.
-        Map<V, Set<K>> result = new HashMap<>();
+        Map<V, Set<K>> result = new HashMap<V, Set<K>>();
 
         for (Map.Entry<K, V> entry : f.entrySet()) {
             if (!result.containsKey(entry.getValue())) {
@@ -62,7 +62,7 @@ public class MapUtils {
     //@ requires f != null;
     //@ ensures \result != null;
     public static <K, V> Map<V, K> inverseBijection(Map<K, V> f) {
-        Map<V, K> result = new HashMap<>();
+        Map<V, K> result = new HashMap<V, K>();
 
         for (Map.Entry<K, V> entry : f.entrySet()) {
             result.put(entry.getValue(), entry.getKey());
@@ -88,7 +88,7 @@ public class MapUtils {
             return null;
         }
 
-        Map<K, K> result = new HashMap<>();
+        Map<K, K> result = new HashMap<K, K>();
 
         for (Map.Entry<K, V> entry : f1.entrySet()) {
             result.put(entry.getKey(), f2.get(entry.getValue()));

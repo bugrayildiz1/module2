@@ -1,8 +1,7 @@
 package ss.week5;
 
 /**
- * Abstract class for keeping a player in the Tic Tac Toe game. Module 2 lab
- * assignment.
+ * Abstract class for keeping a player in the Tic Tac Toe game. Module 2 lab assignment.
  * 
  * 
  * @author Theo Ruys en Arend Rensink
@@ -37,6 +36,7 @@ public abstract class Player {
     /**
      * Returns the name of the player.
      */
+    /*@ pure */
     public String getName() {
         return name;
     }
@@ -44,6 +44,7 @@ public abstract class Player {
     /**
      * Returns the mark of the player.
      */
+    /*@ pure */
     public Mark getMark() {
         return mark;
     }
@@ -56,8 +57,7 @@ public abstract class Player {
     /**
      * Determines the field for the next move.
      * 
-     * @param bord
-     *            the current game board
+     * @param bord the current game board
      * @return the player's choice
      */
     public abstract int determineMove(Board board);
@@ -70,8 +70,7 @@ public abstract class Player {
     /**
      * Makes a move on the board. <br>
      * 
-     * @param bord
-     *            the current board
+     * @param bord the current board
      */
     public void makeMove(Board board) {
         int keuze = determineMove(board);
