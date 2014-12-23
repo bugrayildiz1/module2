@@ -1,6 +1,8 @@
 package ss.week7.threads;
 
 public class TestSyncConsole extends Thread {
+    private static final Object SYNC_ROOT = new Object();
+
     public TestSyncConsole(String name) {
         super(name);
     }
@@ -14,11 +16,13 @@ public class TestSyncConsole extends Thread {
     // on an object to interleave, but as several objects are created and each object will only
     // invoke sum once it has no effect.
     private synchronized void sum() {
-        int num1 = SyncConsole.readInt(String.format("%s: get number 1? ", getName()));
-        int num2 = SyncConsole.readInt(String.format("%s: get number 2? ", getName()));
-        int sum = num1 + num2;
+        synchronized (SYNC_ROOT) {
+            int num1 = SyncConsole.readInt(String.format("%s: get number 1? ", getName()));
+            int num2 = SyncConsole.readInt(String.format("%s: get number 2? ", getName()));
+            int sum = num1 + num2;
 
-        SyncConsole.println(String.format("%s: %d + %d = %d", getName(), num1, num2, sum));
+            SyncConsole.println(String.format("%s: %d + %d = %d", getName(), num1, num2, sum));
+        }
     }
 
     public static void main(String[] args) {
