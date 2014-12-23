@@ -85,6 +85,7 @@ class MandelPanel extends JPanel implements Runnable {
     }
 
     private static final double MAX_SPREAD = 4.0;
+    @SuppressWarnings("unused")
     private static final double LIMIT = 1.0;
     private static final double X_START = -1.5;
     private static final double Y_START = -1.0;
