@@ -10,6 +10,11 @@ package ss.week7.threads;
  */
 public class ProdCons {
     public static void main(String[] args) {
+        // P-7.14: As  the UnsynchronizedIntCell has no synchronization it causes all sorts of
+        // issues, such as producers overwriting the value in the cell before it is read by a
+        // consumer or one or more consumers reading the same value. An IntConsumer exits when it
+        // reads -1, but as this value is never set all consumers will eventually end up reading
+        // the same number over and over again.
         IntCell cell = new UnsynchronizedIntCell();
         Thread prod1 = new IntProducer(1, cell);
         Thread prod2 = new IntProducer(2, cell);
