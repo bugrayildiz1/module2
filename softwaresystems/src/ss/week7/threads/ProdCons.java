@@ -15,7 +15,7 @@ public class ProdCons {
         // consumer or one or more consumers reading the same value. An IntConsumer exits when it
         // reads -1, but as this value is never set all consumers will eventually end up reading
         // the same number over and over again.
-        IntCell cell = new UnsynchronizedIntCell();
+        IntCell cell = new SynchronizedIntCell();
         Thread prod1 = new IntProducer(1, cell);
         Thread prod2 = new IntProducer(2, cell);
         Thread cons1 = new IntConsumer(1, cell);
