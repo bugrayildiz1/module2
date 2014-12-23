@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * BallPanel a special JPanel for drawing balls on. Used with TimedBouncer.
@@ -19,8 +20,11 @@ public class BallPanel extends JPanel implements ActionListener {
     public BallPanel() {
         balls = new java.util.ArrayList<Ball>();
 
-        // Spawn the animate thread.
-        (new AnimateThread(this)).start();
+        // P-7.5. Start the timer which will call the actionPerformed method periodicly.
+        (new Timer(5, this)).start();
+
+        // P-7.4. Spawn the animate thread.
+        //(new AnimateThread(this)).start();
     }
 
     /**
