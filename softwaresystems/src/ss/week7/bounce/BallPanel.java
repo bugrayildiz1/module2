@@ -18,6 +18,9 @@ public class BallPanel extends JPanel implements ActionListener {
 
     public BallPanel() {
         balls = new java.util.ArrayList<Ball>();
+
+        // Spawn the animate thread.
+        (new AnimateThread(this)).start();
     }
 
     /**
@@ -28,6 +31,8 @@ public class BallPanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    // P-7.3: Never called in the original code so the balls will never be simulated, nor will the 
+    // panel be repainted, thus nothing will be drawn.
     public void animate() {
         try {
             while (true) {
@@ -73,6 +78,19 @@ public class BallPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         for (Ball b : balls) {
             b.draw(g);
+        }
+    }
+
+    class AnimateThread extends Thread {
+        private final BallPanel panel;
+
+        AnimateThread(BallPanel argPanel) {
+            this.panel = argPanel;
+        }
+
+        @Override
+        public void run() {
+            panel.animate();
         }
     }
 }
