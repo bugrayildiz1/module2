@@ -12,9 +12,15 @@ import javax.swing.JPanel;
  * @version 15-01-2002
  */
 @SuppressWarnings("serial")
-class MandelPanel extends JPanel {
+class MandelPanel extends JPanel implements Runnable {
     public void draw() {
-        (new MandelThread(this)).start();
+        //(new MandelThread(this)).start();
+        (new Thread(this)).start();
+    }
+
+    @Override
+    public void run() {
+        drawMandel();
     }
 
     // draw the fractal 
@@ -110,4 +116,5 @@ class MandelPanel extends JPanel {
         }
         COLORS[MAX_COLORS] = Color.white;
     }
+
 }
