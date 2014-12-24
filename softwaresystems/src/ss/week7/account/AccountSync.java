@@ -3,11 +3,11 @@ package ss.week7.account;
 public class AccountSync {
     public static void main(String[] args) throws InterruptedException {
         Account account = new Account();
-        double amount = 5.0d;
+        double amount = 15.0d;
         int times = 100;
 
-        Thread thread1 = new MyThread(amount, times, account);
-        Thread thread2 = new MyThread(-amount, times, account);
+        Thread thread1 = new MyThread(-amount, times, account);
+        Thread thread2 = new MyThread(amount, times, account);
 
         // Start the threads.
         thread1.start();
