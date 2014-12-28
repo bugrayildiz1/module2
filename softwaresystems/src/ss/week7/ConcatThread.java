@@ -2,6 +2,7 @@ package ss.week7;
 
 public class ConcatThread extends Thread {
     private static String text = ""; // global variable
+    private static Signal signal = new Signal();
     private String toe;
 
     public ConcatThread(String toeArg) {
@@ -10,9 +11,17 @@ public class ConcatThread extends Thread {
 
     public void run() {
         // P-7.19.3: Force sequential executing of the thread code by locking on a static variable.
-        synchronized (text) {
-            text = text.concat(toe);
+        //synchronized (text) {
+        //    text = text.concat(toe);
+        //}
+
+        // P-7.19.4: If this is the second thread, wait for the first thread to complete.
+        if (toe.equals("two;")) {
+            signal.waitIfNotSet();
         }
+
+        text = text.concat(toe);
+        signal.set();
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -30,5 +39,33 @@ public class ConcatThread extends Thread {
         // it is possible the 'result' of one thread (assigning to text) is overruled by the other
         // thread in which case the outcome can be either 'one;' or 'two;'.
         System.out.println(text);
+    }
+
+    static class Signal {
+        static final Object SYNC = new Object();
+        private boolean set;
+
+        Signal() {
+            this.set = false;
+        }
+
+        void set() {
+            synchronized (SYNC) {
+                set = true;
+                SYNC.notify();
+            }
+        }
+
+        void waitIfNotSet() {
+            synchronized (SYNC) {
+                if (!set) {
+                    try {
+                        SYNC.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }
