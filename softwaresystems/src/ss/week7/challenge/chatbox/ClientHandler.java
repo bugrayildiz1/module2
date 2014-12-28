@@ -3,6 +3,8 @@ package ss.week7.challenge.chatbox;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 /**
@@ -17,12 +19,18 @@ public class ClientHandler extends Thread {
     private BufferedReader in;
     private BufferedWriter out;
     private String clientName;
+    private boolean connected;
 
     /**
      * Constructs a ClientHandler object Initialises both Data streams. @ requires server != null &&
      * sock != null;
      */
     public ClientHandler(Server serverArg, Socket sockArg) throws IOException {
+        this.server = serverArg;
+        this.sock = sockArg;
+        this.in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+        this.out = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
+        this.connected = true;
     }
 
     /**
@@ -42,6 +50,19 @@ public class ClientHandler extends Thread {
      * that the socket connection is broken and shutdown() will be called.
      */
     public void run() {
+        while (connected) {
+            try {
+                String input = in.readLine();
+
+                if (input == null) {
+                    shutdown();
+                } else {
+                    server.broadcast(String.format("%s: %s", clientName, input));
+                }
+            } catch (IOException e) {
+                shutdown();
+            }
+        }
     }
 
     /**
@@ -50,6 +71,13 @@ public class ClientHandler extends Thread {
      * shutdown() is called.
      */
     public void sendMessage(String msg) {
+        try {
+            out.write(msg);
+            out.newLine();
+            out.flush();
+        } catch (IOException e) {
+            shutdown();
+        }
     }
 
     /**
@@ -59,6 +87,8 @@ public class ClientHandler extends Thread {
     private void shutdown() {
         server.removeHandler(this);
         server.broadcast("[" + clientName + " has left]");
+
+        connected = false;
     }
 
 } // end of class ClientHandler

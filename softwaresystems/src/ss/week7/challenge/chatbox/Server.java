@@ -1,6 +1,10 @@
 package ss.week7.challenge.chatbox;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * P2 prac wk5. <br>
@@ -16,6 +20,9 @@ public class Server extends Thread {
 
     /** Constructs a new Server object. */
     public Server(int portArg, MessageUI muiArg) {
+        this.port = portArg;
+        this.mui = muiArg;
+        this.threads = new LinkedList<ClientHandler>();
     }
 
     /**
@@ -24,6 +31,22 @@ public class Server extends Thread {
      * further communication with the Client.
      */
     public void run() {
+        try {
+            @SuppressWarnings("resource")
+            ServerSocket listenSocket = new ServerSocket(port);
+
+            while (true) {
+                Socket clientSocket = listenSocket.accept();
+                ClientHandler clientHandler = new ClientHandler(this, clientSocket);
+
+                addHandler(clientHandler);
+
+                clientHandler.announce();
+                clientHandler.start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -31,6 +54,11 @@ public class Server extends Thread {
      * @param msg message that is send
      */
     public void broadcast(String msg) {
+        for (ClientHandler handler : threads) {
+            handler.sendMessage(msg);
+        }
+
+        mui.addMessage(msg);
     }
 
     /**
@@ -38,6 +66,7 @@ public class Server extends Thread {
      * @param handler ClientHandler that will be added
      */
     public void addHandler(ClientHandler handler) {
+        threads.add(handler);
     }
 
     /**
@@ -45,6 +74,7 @@ public class Server extends Thread {
      * @param handler ClientHandler that will be removed
      */
     public void removeHandler(ClientHandler handler) {
+        threads.remove(handler);
     }
 
 } // end of class Server

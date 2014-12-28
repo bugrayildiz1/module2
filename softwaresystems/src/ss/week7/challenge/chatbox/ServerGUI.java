@@ -119,7 +119,8 @@ public class ServerGUI extends JFrame implements ActionListener, MessageUI {
      */
     private void startListening() {
         int port = 0;
-        int max = 0;
+        // The variable max was never used.
+        //int max = 0;
 
         try {
             port = Integer.parseInt(tfPort.getText());
@@ -144,7 +145,9 @@ public class ServerGUI extends JFrame implements ActionListener, MessageUI {
 
     /** Start a ServerGUI application. */
     public static void main(String[] args) {
-        ServerGUI gui = new ServerGUI();
+        // The gui variable was never used.
+        //ServerGUI gui = new ServerGUI();
+        new ServerGUI();
     }
 
 }
