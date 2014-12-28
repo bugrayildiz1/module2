@@ -8,17 +8,20 @@ public class QuickSort {
     }
 
     public static void qsort(int[] a, int first, int last) {
-        //if (first < last) {
-        //    int position = partition(a, first, last);
-        //    qsort(a, first, position - 1);
-        //    qsort(a, position + 1, last);
-        //}
-        Thread thread = new QSortThread(a, first, last);
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (first < last) {
+            int position = partition(a, first, last);
+            Thread thrA = new QSortThread(a, first, position - 1);
+            Thread thrB = new QSortThread(a, position + 1, last);
+
+            thrA.start();
+            thrB.start();
+
+            try {
+                thrA.join();
+                thrB.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -86,10 +89,6 @@ class QSortThread extends Thread {
 
     @Override
     public void run() {
-        if (first < last) {
-            int position = QuickSort.partition(a, first, last);
-            QuickSort.qsort(a, first, position - 1);
-            QuickSort.qsort(a, position + 1, last);
-        }
+        QuickSort.qsort(a, first, last);
     }
 }
