@@ -53,6 +53,11 @@ public class Server extends Thread {
      * Sends a message using the collection of connected ClientHandlers to all connected Clients.
      * @param msg message that is send
      */
+    // This method is problematic as iterating over a collection isn't thread safe. If addHandler
+    // or removeHandler is called while iterating it would throw a ConcurentModificationException.
+    // Declaring this method as synchronized alone wouldn't solve this issue though. The addHandler
+    // and removeHandler methods would also require some form of synchronization to properly thread
+    // safe the code.
     public void broadcast(String msg) {
         for (ClientHandler handler : threads) {
             handler.sendMessage(msg);
